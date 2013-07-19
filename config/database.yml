@@ -47,6 +47,7 @@ test:
   encoding: unicode
   database: syn_test
   pool: 5
+  host: localhost
 
 production:
   adapter: postgresql
