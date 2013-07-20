@@ -1,0 +1,286 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 49.0,
+		"selected_items":
+		[
+			[
+				"install p",
+				"Package Control: Install Package"
+			],
+			[
+				"powersh",
+				"SublimeREPL: PowerShell"
+			],
+			[
+				"shell",
+				"SublimeREPL: Shell"
+			],
+			[
+				"install pa",
+				"Package Control: Install Package"
+			],
+			[
+				"git diff cur",
+				"Git: Diff Current File"
+			],
+			[
+				"gitdiff",
+				"Git: Diff Staged"
+			],
+			[
+				"gitdi",
+				"Git: Diff All"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"mini",
+				"View: Toggle Minimap"
+			],
+			[
+				"pref user",
+				"Preferences: Settings - User"
+			],
+			[
+				"package remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Controlintall",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install package",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install p",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 588.0
+	},
+	"console":
+	{
+		"height": 174.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/shibumi/Desktop/nameinane/code/syn/Guardfile",
+		"/Users/shibumi/Desktop/nameinane/code/syn/Gemfile",
+		"/Users/shibumi/Desktop/nameinane/code/syn/spec/spec_helper.rb",
+		"/Users/shibumi/Desktop/nameinane/code/syn/.rspec",
+		"/Users/shibumi/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/shibumi/.bashrc",
+		"/private/etc/paths",
+		"/Users/shibumi/.bash_profile",
+		"/Users/shibumi/.zshrc",
+		"/Users/shibumi/#.bashrc#",
+		"/Users/shibumi/Desktop/nameinane/code/syn/config/application.rb",
+		"/Users/shibumi/Desktop/nameinane/code/syn/.secret",
+		"/Users/shibumi/Desktop/nameinane/code/syn/public/404.html",
+		"/Users/shibumi/Desktop/nameinane/code/syn/syn.sublime-workspace",
+		"/Users/shibumi/Library/Application Support/Sublime Text 2/Packages/SideBarEnhancements/messages/11.13.2012.1305.0.txt",
+		"/Users/shibumi/Desktop/nameinane/code/syn/Rakefile",
+		"/Users/shibumi/Desktop/nameinane/code/syn/app/controllers/static_pages_controller.rb"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			",",
+			":",
+			"/Users/shibumi",
+			"=/usr/local/bin",
+			"PATH",
+			":",
+			"rvm",
+			"subli",
+			"gem"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.git":
+	{
+		"height": 144.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"guard",
+				"Guardfile"
+			],
+			[
+				".rsp",
+				".rspec"
+			],
+			[
+				"spec",
+				"spec/spec_helper.rb"
+			],
+			[
+				"gemf",
+				"Gemfile"
+			],
+			[
+				"appli",
+				"config/application.rb"
+			],
+			[
+				".sec",
+				".secret"
+			],
+			[
+				"gem",
+				"Gemfile"
+			],
+			[
+				"public",
+				"public/404.html"
+			],
+			[
+				"app",
+				"config/application.rb"
+			],
+			[
+				"gemfi",
+				"Gemfile"
+			],
+			[
+				"rake",
+				"Rakefile"
+			],
+			[
+				"static",
+				"app/controllers/static_pages_controller.rb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 197.0,
+	"status_bar_visible": true
+}
