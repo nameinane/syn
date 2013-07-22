@@ -11,8 +11,8 @@ gem 'uglifier' # Use Uglifier as compressor for JavaScript assets
 gem 'coffee-rails' # Use CoffeeScript for .js.coffee assets and views
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'turbolinks' # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'jbuilder' #Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-
+gem 'jbuilder' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'bootstrap-sass' # Grab bootstrap
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
