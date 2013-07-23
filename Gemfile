@@ -13,6 +13,7 @@ gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'turbolinks' # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jbuilder' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'bootstrap-sass' # Grab bootstrap
+gem 'bcrypt-ruby' , '~> 3.0.0' # Encrypt password_digest; TODO will need update: http://stackoverflow.com/questions/17741040/cant-activate-bcrypt-ruby-3-0-0-already-activated-bcrypt-ruby-3-1-1-make
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -44,9 +45,6 @@ group :doc do
 	gem 'sdoc', require: false
 end
 
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'
