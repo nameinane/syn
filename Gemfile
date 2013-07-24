@@ -32,7 +32,18 @@ group :development, :test do
 	gem 'guard-spork'
 	gem 'childprocess'
 
+	gem 'pry-rails' # try pry for console
+	
 end
+
+# Some more things for testing, like Factory Girl
+group :test do
+
+	gem 'factory_girl_rails'
+
+end
+
+
 
 # The rails_12factor gem is used by Heroku to serve static assets such as images and stylesheets.
 group :production do
