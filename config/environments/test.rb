@@ -1,6 +1,12 @@
 Syn::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+
+  # Make bcrypt spend less time on creating really solid encryption 
+  #   for worthless testing passwords
+  ActiveModel::SecurePassword.min_cost = true # Lower bcrypt's cost function.
+
+
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped

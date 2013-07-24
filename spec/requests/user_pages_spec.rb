@@ -2,23 +2,45 @@ require 'spec_helper'
 
 describe "UserPages" do
 
-	describe "Sign Up" do
+  subject { page }
+
+	describe "signup page" do
 		before { visit signup_path }
-		subject { page }
+    let(:submit) { "Create my account" }
 
-		it {should have_content('everything') }
-		it {should have_title(full_title('Sign Up')) }
+		describe "title and content quick check" do
+			it {should have_content('Confirmation') }
+			it {should have_title(full_title('Sign Up')) }
+		end
 
-	end
+    describe "with invalid information" do
+      it "should not create a user" do
+        expect { click_button submit }.not_to change(User, :count)
+      end
+    end
+
+    describe "with valid information" do
+      before do
+        fill_in "Email",        with: "nameinane@gmail.com"
+        fill_in "Password",     with: "foobar"
+        fill_in "Confirmation", with: "foobar"
+      end
+
+      it "should create a user" do
+        expect { click_button submit }.to change(User, :count).by(1)
+      end
+    end
+  end
 
 
   describe "profile page" do
-    let(:u) { User.find_by(id: 1) }
+    let(:u) { FactoryGirl.create(:user) }
     before { visit user_path(u) }
-    binding.pry
 
     it { should have_content(u.email) }
     it { should have_title(u.email) }
+    # binding.pry
+
   end
 
 end
