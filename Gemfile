@@ -33,6 +33,7 @@ group :development, :test do
 	gem 'childprocess'
 
 	gem 'pry-rails' # try pry for console
+	gem 'pry-byebug' # debugger for >=2.0 ruby
 	
 end
 

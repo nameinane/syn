@@ -9,9 +9,9 @@ class UsersController < ApplicationController
 
   def create
   	@user = User.new(user_params)
-
-
   	if @user.save
+      # sign the user in automatically
+      sign_in @user
   		# good to go, kick 'em over to the profile page
   		flash[:success] = "You're in.  Congrats."
   		redirect_to @user
@@ -22,12 +22,12 @@ class UsersController < ApplicationController
 
   end
 
-
+  # !PRIVATE! 
   private
 
-  def user_params
-  	params.require(:user).permit(:email, :password, :password_confirmation)
-  end
+    def user_params
+    	params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
 
 
 end

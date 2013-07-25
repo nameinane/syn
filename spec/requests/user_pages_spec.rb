@@ -29,6 +29,7 @@ describe "UserPages" do
 
     describe "with valid information" do
       before do
+        fill_in "Name",         with: "Name Inanesky"
         fill_in "Email",        with: "nameinane@gmail.com"
         fill_in "Password",     with: "foobar"
         fill_in "Confirmation", with: "foobar"
@@ -42,9 +43,11 @@ describe "UserPages" do
         before { click_button submit }
         let(:user) { User.find_by(email: 'nameinane@gmail.com') }
 
-        it { should have_title(user.email) }
+        it { should have_link('Sign out') }
+        it { should have_title(user.name) }
         it { should have_selector('div.alert.alert-success', text: "You're in.") }
       end
+
 
 
     end
@@ -56,7 +59,7 @@ describe "UserPages" do
     before { visit user_path(u) }
 
     it { should have_content(u.email) }
-    it { should have_title(u.email) }
+    it { should have_title(u.name) }
     # binding.pry
 
   end
