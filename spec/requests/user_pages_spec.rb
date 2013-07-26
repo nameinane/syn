@@ -43,12 +43,19 @@ describe "UserPages" do
         before { click_button submit }
         let(:user) { User.find_by(email: 'nameinane@gmail.com') }
 
-        it { should have_link('Sign out') }
         it { should have_title(user.name) }
         it { should have_selector('div.alert.alert-success', text: "You're in.") }
       end
 
+      describe "after sign in" do
+        let(:user) { FactoryGirl.create(:user) }
+        before { sign_in user }
 
+        it { should have_link('Settings') }
+        it { should have_link('Profile') }
+        it { should have_link('Sign out') }
+        it { should_not have_link('Sign in') }
+      end
 
     end
   end
@@ -61,7 +68,47 @@ describe "UserPages" do
     it { should have_content(u.email) }
     it { should have_title(u.name) }
     # binding.pry
-
   end
 
+
+  describe "edit page" do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      sign_in user
+      visit edit_user_path(user)
+    end
+
+
+    describe "page" do
+      it { should have_content("Edit profile") }
+      it { should have_title("Edit profile") }
+      it { should have_link("change", href: 'http://gravatar.com/emails') }
+    end
+
+    describe "with invalid information" do
+      before { click_button "Save changes" }
+
+      it { should have_error_message('error') }
+    end
+
+    describe "with valid information" do
+      let(:new_name) { "Serious Name" }
+      let(:new_email) { "serious@name.com" }
+
+      before do 
+        fill_in "Name",                 with: new_name
+        fill_in "Email",                with: new_email
+        fill_in "Password",             with: user.password
+        fill_in "Confirm Password",     with: user.password
+        click_button "Save changes"
+      end
+
+      it { should have_title(new_name) }
+      it { should have_selector('div.alert.alert-success') }
+      it { should have_link('Sign out', href: signout_path) }
+
+      specify { expect(user.reload.name).to eq new_name }
+      specify { expect(user.reload.email).to eq new_email }
+    end
+  end
 end

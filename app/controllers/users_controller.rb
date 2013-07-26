@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :signed_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+
   def new
   	@user = User.new
   end
@@ -22,6 +25,21 @@ class UsersController < ApplicationController
 
   end
 
+  def edit
+  end
+
+  def update
+    if @user.update_attributes(user_params)
+      # update is good (note: use user_params to avoid malicious passing of other params)
+      flash[:success] = "Changes saved.  Hope you like it this way better."
+      sign_in @user
+      redirect_to user_path
+    else
+      render 'edit'
+    end
+
+  end
+
   # !PRIVATE! 
   private
 
@@ -29,5 +47,16 @@ class UsersController < ApplicationController
     	params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
+
+    # before filters
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
 
 end

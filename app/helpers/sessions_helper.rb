@@ -5,7 +5,7 @@ module SessionsHelper
 		cookies.permanent[:remember_token] = remember_token
 		user.update_attribute(:remember_token, User.encrypt(remember_token))
 		self.current_user = user
-		flash[:information] = "Hi #{user.email}!"
+		flash[:information] = "Hi #{user.name}!"
 	end
 
 	def sign_out
@@ -13,13 +13,17 @@ module SessionsHelper
 		cookies.delete(:remember_token)
 	end	
 
+	def current_user
+		remember_token = User.encrypt(cookies[:remember_token])
+		@current_user ||= User.find_by(remember_token: remember_token)
+	end
+
 	def current_user=(user)
 		@current_user = user
 	end
 
-	def current_user
-		remember_token = User.encrypt(cookies[:remember_token])
-		@current_user ||= User.find_by(remember_token: remember_token)
+	def current_user?(user)
+		current_user == user
 	end
 
 	def signed_in?
