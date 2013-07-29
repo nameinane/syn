@@ -16,6 +16,7 @@ gem 'bootstrap-sass' # Grab bootstrap
 gem 'bcrypt-ruby' , '~> 3.0.0' # Encrypt password_digest; TODO will need update: http://stackoverflow.com/questions/17741040/cant-activate-bcrypt-ruby-3-0-0-already-activated-bcrypt-ruby-3-1-1-make
 gem 'will_paginate' # Use this to paginate
 gem 'bootstrap-will_paginate' # Make pagination better looking
+gem 'faker' # Generate some test data for our database	(TODO will need to move it to :development :test group)
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -37,7 +38,6 @@ group :development, :test do
 	gem 'pry-rails' # try pry for console
 	gem 'pry-byebug' # debugger for >=2.0 ruby
 
-	gem 'faker' # Generate some test data for our database	
 end
 
 # Some more things for testing, like Factory Girl
