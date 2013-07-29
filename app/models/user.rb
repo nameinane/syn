@@ -18,6 +18,15 @@ class User < ActiveRecord::Base
 		Digest::SHA1.hexdigest(token.to_s)
 	end
 
+	def self.search(search)
+	  if search
+	    #find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+	    #WHERE (name LIKE '%Fr%')
+	    self.all.where("name LIKE '%#{search}%'")
+	  else
+	    self.all
+	  end
+	end
 
 	private
 
