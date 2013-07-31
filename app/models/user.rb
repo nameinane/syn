@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	default_scope -> { order('created_at DESC') }
 	before_save { self.email = email.downcase }
 	before_create :create_remember_token
 
@@ -22,7 +23,7 @@ class User < ActiveRecord::Base
 	  if search
 	    #find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
 	    #WHERE (name LIKE '%Fr%')
-	    self.all.where("name LIKE '%#{search}%'")
+	    self.all.where('name LIKE ?', "'%#{search}%'")
 	  else
 	    self.all
 	  end
