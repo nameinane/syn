@@ -17,6 +17,10 @@ gem 'bcrypt-ruby' , '~> 3.0.0' # Encrypt password_digest; TODO will need update:
 gem 'will_paginate' # Use this to paginate
 gem 'bootstrap-will_paginate' # Make pagination better looking
 gem 'faker' # Generate some test data for our database	(TODO will need to move it to :development :test group)
+gem 'default_value_for', git: 'git://github.com/tsmango/default_value_for.git' # Provides a way to specify default values for ActiveRecord models --> there is a bug with Rails 4, hence the link to a branch
+gem 'validates_timeliness' # Date and time validation plugin for ActiveModel and Rails. Supports multiple ORMs and allows custom date/time formats.
+gem 'carmen-rails' # Rails adapter for Carmen (provides country_select and subregion_select)
+gem 'paranoia' # ActiveRecord plugin allowing you to hide and restore records without actually deleting them.
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby

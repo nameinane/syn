@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	acts_as_paranoid
 	default_scope -> { order('created_at DESC') }
 	before_save { self.email = email.downcase }
 	before_create :create_remember_token
