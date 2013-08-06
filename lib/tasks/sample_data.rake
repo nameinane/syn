@@ -49,7 +49,7 @@ namespace :db do
 				end
 			end
 
-			# populate addresses
+			# populate address
 			Account.all.each do |acc|
 				label = Faker::Name.prefix + " " + acc.people.first.first_name + " " + acc.people.first.last_name
 				street1 = Faker::Address.street_address
@@ -57,7 +57,7 @@ namespace :db do
 				city = Faker::Address.city
 				state = Faker::Address.state_abbr
 				zip = Faker::Address.zip
-				acc.addresses.create(label: label, 
+				acc.address.create(label: label, 
 				                     street1: street1, 
 				                     street2: street2,
 				                     city: city,
