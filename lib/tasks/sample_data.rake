@@ -57,7 +57,7 @@ namespace :db do
 				city = Faker::Address.city
 				state = Faker::Address.state_abbr
 				zip = Faker::Address.zip
-				acc.address.create(label: label, 
+				acc.create_address(label: label, 
 				                     street1: street1, 
 				                     street2: street2,
 				                     city: city,
@@ -71,8 +71,6 @@ namespace :db do
 				Random.new.rand(1..5).times do
 					acc.payments.create(amount: Random.new.rand(1..5)*18,
 					                    source: "faker") unless Random.new.rand(0..4) == 4
-					acc.payments.create(amount: Random.new.rand(1..5)*18,
-					                    source: "faker", year: 1.year.ago.year) unless Random.new.rand(0..1) == 0
 				end
 			end
 

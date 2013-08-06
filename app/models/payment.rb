@@ -20,4 +20,7 @@ class Payment < ActiveRecord::Base
     "appsyn"  # TODO: make this a user email
   end
 
+  # TODO: currently there is no support for a present-day payment
+  # 			covering a past-year or later-year inclusion in report (perhaps worthwhile?)
+
 end
