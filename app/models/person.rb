@@ -1,5 +1,6 @@
 class Person < ActiveRecord::Base
 	acts_as_paranoid
+	include Verifiable
 
 	belongs_to :account
 
@@ -17,7 +18,15 @@ class Person < ActiveRecord::Base
 	validates :sort_order, 	presence: true, numericality: true,
             format: { with: /\A\d{1,4}\z/ }
 
-	validates_inclusion_of :active, in: [true, false]
+  default_value_for :sort_order do # see gem 'default_value_for'
+    100
+  end
+
+  validates :source, presence: true
+  default_value_for :source do # see gem 'default_value_for'
+    "appsyn"  # TODO: make this a user email
+  end
+
 
 
 	def yizkor?

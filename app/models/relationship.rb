@@ -12,9 +12,8 @@ class Relationship < ActiveRecord::Base
 
 	# TODO: perhaps validate that a yizkor cannot be a sponsor?  not sure if this is true for all time though.
 
-	default_value_for :source do # see gem 'default_value_for'
-		"appsyn"  # TODO: make this a user email
-	end
-
+  default_value_for :source do # see gem 'default_value_for'
+    "appsyn"  # TODO: make this a user email
+  end
 
 end

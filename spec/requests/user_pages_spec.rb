@@ -38,7 +38,7 @@ describe "UserPages" do
           visit users_path
         end
 
-        it { should have_link('delete', href: user_path(User.first)) }
+        it { should have_link('delete', href: user_path(User.last)) }
         it "should be able to delete another user" do
           expect do
             click_link('delete', match: :first)
@@ -70,7 +70,6 @@ describe "UserPages" do
       it { should_not have_title(u.name) }
       # binding.pry
     end
-
   end
 
   describe "signup page" do
@@ -78,97 +77,93 @@ describe "UserPages" do
     let(:submit) { "Create my account" }
 
     describe "title and content quick check" do
-     it {should have_content('Confirmation') }
-     it {should have_title(full_title('Sign Up')) }
-   end
-
-   describe "with invalid information" do
-    it "should not create a user" do
-      expect { click_button submit }.not_to change(User, :count)
+      it { should have_content('Confirm password') }
+      it { should have_title(full_title('Sign up')) }
     end
 
-    describe "after submission" do
-     before { click_button submit }
+    describe "with invalid information" do
+      it "should not create a user" do
+        expect { click_button submit }.not_to change(User, :count)
+      end
 
-     it { should have_title('Sign Up') }
-     it { should have_content('error') }
-   end
+      describe "after submission" do
+        before { click_button submit }
 
- end
-
- describe "with valid information" do
-  before do
-    fill_in "Name",         with: "Name Inanesky"
-    fill_in "Email",        with: "nameinane@gmail.com"
-    fill_in "Password",     with: "foobar"
-    fill_in "Confirmation", with: "foobar"
-  end
-
-  it "should create a user" do
-    expect { click_button submit }.to change(User, :count).by(1)
-  end
-
-  describe "after saving the user" do
-    before { click_button submit }
-    let(:user) { User.find_by(email: 'nameinane@gmail.com') }
-
-    it { should have_title(user.name) }
-    it { should have_selector('div.alert.alert-success', text: "You're in.") }
-  end
-
-  describe "after sign in" do
-    let(:user) { FactoryGirl.create(:user) }
-    before { sign_in user }
-
-    it { should have_link('Settings') }
-    it { should have_link('Profile') }
-    it { should have_link('Sign out') }
-    it { should_not have_link('Sign in') }
-  end
-end
-end
-
-
-
-
-describe "edit page" do
-  let(:user) { FactoryGirl.create(:user) }
-  before do
-    sign_in user
-    visit edit_user_path(user)
-  end
-
-
-  describe "page" do
-    it { should have_content("Edit profile") }
-    it { should have_title("Edit profile") }
-    it { should have_link("change", href: 'http://gravatar.com/emails') }
-  end
-
-  describe "with invalid information" do
-    before { click_button "Save changes" }
-
-    it { should have_error_message('error') }
-  end
-
-  describe "with valid information" do
-    let(:new_name) { "Serious Name" }
-    let(:new_email) { "serious@name.com" }
-
-    before do 
-      fill_in "Name",                 with: new_name
-      fill_in "Email",                with: new_email
-      fill_in "Password",             with: user.password
-      fill_in "Confirm Password",     with: user.password
-      click_button "Save changes"
+        it { should have_title('Sign up') }
+        it { should have_content('error') }
+      end
     end
 
-    it { should have_title(new_name) }
-    it { should have_selector('div.alert.alert-success') }
-    it { should have_link('Sign out', href: signout_path) }
+    describe "with valid information" do
+      before do
+        fill_in "Name",             with: "Name Inanesky"
+        fill_in "Email",            with: "nameinane@gmail.com"
+        fill_in "Password",         with: "foobar"
+        fill_in "Confirm password", with: "foobar"
+      end
 
-    specify { expect(user.reload.name).to eq new_name }
-    specify { expect(user.reload.email).to eq new_email }
+      it "should create a user" do
+        expect { click_button submit }.to change(User, :count).by(1)
+      end
+
+      describe "after saving the user" do
+        before { click_button submit }
+        let(:user) { User.find_by(email: 'nameinane@gmail.com') }
+
+        it { should have_title(user.name) }
+        it { should have_selector('div.alert.alert-success', text: "You're in.") }
+      end
+
+      describe "after sign in" do
+        let(:user) { FactoryGirl.create(:user) }
+        before { sign_in user }
+
+        it { should have_link('Settings') }
+        it { should have_link('Profile') }
+        it { should have_link('Sign out') }
+        it { should_not have_link('Sign in') }
+      end
+    end
+
+    describe "edit page" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        sign_in user
+        visit edit_user_path(user)
+      end
+
+
+      describe "page" do
+        it { should have_content("Edit profile") }
+        it { should have_title("Edit profile") }
+        it { should have_link("change", href: 'http://gravatar.com/emails') }
+      end
+
+      describe "with invalid information" do
+        before { click_button "Save changes" }
+
+        it { should have_error_message('error') }
+      end
+
+      describe "with valid information" do
+        let(:new_name) { "Serious Name" }
+        let(:new_email) { "serious@name.com" }
+
+        before do 
+          fill_in "Name",                 with: new_name
+          fill_in "Email",                with: new_email
+          fill_in "Password",             with: user.password
+          fill_in "Confirm password",     with: user.password
+          click_button "Save changes"
+        end
+
+        it { should have_title(new_name) }
+        it { should have_selector('div.alert.alert-success') }
+        it { should have_link('Sign out', href: signout_path) }
+
+        specify { expect(user.reload.name).to eq new_name }
+        specify { expect(user.reload.email).to eq new_email }
+      end
+    end
   end
-end
 end

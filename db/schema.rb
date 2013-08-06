@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130805041315) do
+ActiveRecord::Schema.define(version: 20130806040454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20130805041315) do
   create_table "accounts", force: true do |t|
     t.string   "tag"
     t.string   "name"
-    t.boolean  "active",     default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -34,7 +33,6 @@ ActiveRecord::Schema.define(version: 20130805041315) do
     t.string   "state"
     t.string   "zip"
     t.string   "source"
-    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -47,6 +45,7 @@ ActiveRecord::Schema.define(version: 20130805041315) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.string   "source"
   end
 
   create_table "payments", force: true do |t|
@@ -56,6 +55,7 @@ ActiveRecord::Schema.define(version: 20130805041315) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.string   "source"
   end
 
   create_table "people", force: true do |t|
@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 20130805041315) do
     t.string   "last_name"
     t.integer  "sort_order"
     t.string   "source"
-    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"

@@ -18,7 +18,6 @@ gem 'will_paginate' # Use this to paginate
 gem 'bootstrap-will_paginate' # Make pagination better looking
 gem 'faker' # Generate some test data for our database	(TODO will need to move it to :development :test group)
 gem 'default_value_for', git: 'git://github.com/tsmango/default_value_for.git' # Provides a way to specify default values for ActiveRecord models --> there is a bug with Rails 4, hence the link to a branch
-gem 'validates_timeliness' # Date and time validation plugin for ActiveModel and Rails. Supports multiple ORMs and allows custom date/time formats.
 gem 'carmen-rails' # Rails adapter for Carmen (provides country_select and subregion_select)
 gem 'paranoia' # ActiveRecord plugin allowing you to hide and restore records without actually deleting them.
 
@@ -42,13 +41,16 @@ group :development, :test do
 	gem 'pry-rails' # try pry for console
 	gem 'pry-byebug' # debugger for >=2.0 ruby
 
+	gem 'validates_timeliness' # Date and time validation plugin for ActiveModel and Rails. Supports multiple ORMs and allows custom date/time formats.
+
 end
 
 # Some more things for testing, like Factory Girl
 group :test do
 
 	gem 'factory_girl_rails'
-
+	gem 'shoulda-matchers' # Makes tests easy on the fingers and the eyes
+	
 end
 
 
