@@ -1,6 +1,6 @@
-namespace :db do
-	desc "Fill database with sample data"
-		task populate_users: :environment do
+namespace :populate do
+	desc "Fill database with data (fake or legacy)"
+		task users: :environment do
 			User.create!(name: "Name Inane",
 			             email: "nameinane@gmail.com",
 			             password: "foobar",
@@ -17,7 +17,7 @@ namespace :db do
 			end
 		end
 
-		task populate_syn: :environment do
+		task syn_fake: :environment do
 			# load up accounts (they all end in "& Family")
 			5.times do
 				tag = "FK" + "0123456".split('').shuffle.join
@@ -82,6 +82,28 @@ namespace :db do
 					p.mentions.create	unless Random.new.rand(0..2) == 0
 					p.mentions.create(year: 1.year.ago.year) unless Random.new.rand(0..1) == 0
 				end
+			end
+		end
+
+		# TODO: for some reason this task does not show up under "rake -T"
+		task syn_legacy: :environment do
+			# TODO: change path to be dynamic
+			require	'~/syn/lib/tasks/legacy_classes.rb'
+
+			# TODO: use logger!
+			begin
+				LegacyAccounts.all.each do |oa|
+					puts "#{oa.account_tag} #{oa.book_name}"
+					oa.addresses.each do |addy|
+						puts "#{addy.label}"
+						puts "#{addy.street1} #{addy.street2}"
+						puts "#{addy.city}, #{addy.state}, #{addy.zip}"
+					end
+					puts
+				end
+			rescue StandardError => e
+				# log it
+				puts e
 			end
 
 		end
