@@ -15,8 +15,9 @@ class Person < ActiveRecord::Base
 	validates :account_id, presence: true
 	validate :account_exists # verify existence of the account of which this person is a part
 
+	# TODO: validate that first_name and last_name are not null / blank?
 	validates :sort_order, 	presence: true, numericality: true,
-            format: { with: /\A\d{1,4}\z/ }
+            format: { with: /\A\d{1,5}\z/ }
 
   default_value_for :sort_order do # see gem 'default_value_for'
     100

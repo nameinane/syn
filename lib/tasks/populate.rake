@@ -91,16 +91,114 @@ namespace :populate do
 			require	'~/syn/lib/tasks/legacy_classes.rb'
 
 			# TODO: use logger!
+			# TODO: use temporary tables, then 1) report on number of objects created and
+			# 2) ask if database should be overwritten with new info
 			begin
-				LegacyAccounts.all.each do |oa|
-					puts "#{oa.account_tag} #{oa.book_name}"
-					oa.addresses.each do |addy|
-						puts "#{addy.label}"
-						puts "#{addy.street1} #{addy.street2}"
-						puts "#{addy.city}, #{addy.state}, #{addy.zip}"
-					end
+				
+				input = ''
+				puts "You are about to destroy all data in the database concerning:"
+				puts "accounts, people, relationships, addresses, payments, and mentions."
+				puts "Are you sure you want to proceed?"
+				puts "type 'destroy' to confirm:"
+				input = 'destroy' # STDIN.gets.chomp
+				if ['destroy'].include? input then
+
+					# empty destination tables
+					# Account.send 				("#{input}_all")
+					# Address.send 				("#{input}_all")
+					# Payment.send 				("#{input}_all")
+					# Person.send 				("#{input}_all")
+					# Relationship.send 	("#{input}_all")
+					# Mention.send 				("#{input}_all")
+				# tables_to_kill = ['accounts', 'people', 'relationships', 
+				# 									'addresses', 'payments', 'mentions']
+				# tables_to_kill.each do |table_name|
+				# 	ActiveRecord::Base.connection.execute("DELETE FROM #{table_name};")					
+				# end
+
+					# show resulting stats
+					puts "accounts: " + Account.count.to_s + " records."
+					puts "addresses: " + Address.count.to_s + " records."
+					puts "payments: " + Payment.count.to_s + " records."
+					puts "people: " + Person.count.to_s + " records."
+					puts "relationships: " + Relationship.count.to_s + " records."
+					puts "mentions: " + Mention.count.to_s + " records."
 					puts
+
+					# populate accounts
+				# puts "Creating accounts.."
+				# LegacyAccounts.all.each do |la|
+				# 	Account.create!(tag: la.account_tag, name: la.book_name)
+				# end
+				# puts "accounts now has:" + Account.count.to_s + " records."
+				# puts
+
+					# TODO: make this more resilient -- what if no account found?  what if creating a person fails?
+					# TODO: some accounts have people with names set to 'null' -- need to deal with that 
+					# populate people
+				# puts "Creating people and relationships.."
+				# LegacyPeople.all.each do |lp|
+				# 	account = Account.find_by(tag: lp.account_tag)
+
+				# 	sponsor = Person.find_or_create_by(account_id: account.id, first_name: lp.sponsor_first_name, 
+				# 	                         last_name: lp.sponsor_last_name, sort_order: 0, 
+				# 	                         source: lp.source) 
+				# 	yizkor = Person.find_or_create_by(account_id: account.id, first_name: lp.yizkor_first_name, 
+				# 	                         last_name: lp.yizkor_last_name, sort_order: lp.sort_order*1000, 
+				# 	                         source: lp.source) 
+
+				# 	Relationship.find_or_create_by(sponsor_id: sponsor.id, yizkor_id: yizkor.id, 
+				# 	                     kind: lp.relationship, source: lp.source) 
+				# end
+					puts "people now has:" + Person.count.to_s + " records."
+					puts "relationships now has:" + Relationship.count.to_s + " records."
+					puts
+
+					# TODO: make this more resilient -- what if no account found?  what if creating a mention fails?
+					# TODO: DRY this code!
+					# populate mentions
+					puts "Creating mentions.."
+					LegacyMentions.all.each do |lmn|
+						account = Account.find_by(tag: lmn.account_tag)
+						case lmn.publication_type
+						when "book"
+							# TODO: looking up a person should not be "or_create_by", this is dangerous!
+							# if person.nil? then
+							# 	puts "#{lmn.account_tag} #{account.id} #{lmn.yizkor_first_name} #{lmn.yizkor_last_name}"
+							# end
+							person = Person.find_or_create_by(account_id: account.id, 
+							                        first_name: lmn.yizkor_first_name, last_name: lmn.yizkor_last_name)
+							Mention.find_or_create_by(mentionable_id: person.id, mentionable_type: "Person",
+							                          year: lmn.publication_year, source: "migration")
+						when "holocaust"
+							Mention.find_or_create_by(mentionable_id: account.id, mentionable_type: "Account",
+							                          year: lmn.publication_year, source: "migration")
+						end
+					end
+					puts "mentions now has:" + Mention.count.to_s + " records."
+					puts
+
+
+					# LegacyAccounts.all.each do |oa|
+					# 	puts "#{oa.account_tag} #{oa.book_name}"
+					# 	oa.addresses.each do |addy|
+					# 		puts "DELETED:" unless addy.active
+					# 		puts "#{addy.label}"
+					# 		puts "#{addy.street1} #{addy.street2}"
+					# 		puts "#{addy.city}, #{addy.state}, #{addy.zip}"
+					# 	end
+					# 	oa.payments.each do |pmt|
+					# 		puts "#{pmt.amount} on #{pmt.paid_on}"
+					# 	end
+					# 	oa.mentions.years.each do |yr|
+					# 		puts "Participated in holocaust memorial: #{yr}"
+					# 	end					
+					# 	puts
+					# end
+				else
+					puts "Populating database with legacy data is CANCELLED.  No changes made."
 				end
+
 			rescue StandardError => e
 				# log it
 				puts e

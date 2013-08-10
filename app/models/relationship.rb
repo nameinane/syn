@@ -8,7 +8,7 @@ class Relationship < ActiveRecord::Base
 	validate :people_exist_on_the_same_account # verify existence of both people in this relationship
 
 	validates_uniqueness_of :yizkor_id
-	validates_uniqueness_of :sponsor_id, scope: [:yizkor_id]
+	validates_uniqueness_of :sponsor_id, scope: [:yizkor_id, :deleted_at]
 
 	# TODO: perhaps validate that a yizkor cannot be a sponsor?  not sure if this is true for all time though.
 

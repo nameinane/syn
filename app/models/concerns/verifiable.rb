@@ -26,7 +26,7 @@ module Verifiable
     self.errors.add(:mentionable, "doesn't exist.") unless valid
 	end
 
-  # verifies that both people in a relationship exist 
+  # Verifies that both people in a relationship exist 
   # TODO: refactor, perhaps using a foreigner gem: https://github.com/matthuhiggins/foreigner
   def people_exist_on_the_same_account
     # Validation will pass if both people exist
