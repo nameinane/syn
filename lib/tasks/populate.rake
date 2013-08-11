@@ -6,7 +6,8 @@ namespace :populate do
 			             password: "foobar",
 			             password_confirmation: "foobar",
 			             admin: true)
-			99.times do |n|
+			# TODO: in case more users are needed, enable below block
+			0.times do |n|
 				name = Faker::Name.name
 				email = "example-#{n}@funrail.org"
 				password = "password"
@@ -110,11 +111,13 @@ namespace :populate do
 					# Person.send 				("#{input}_all")
 					# Relationship.send 	("#{input}_all")
 					# Mention.send 				("#{input}_all")
-				# tables_to_kill = ['accounts', 'people', 'relationships', 
-				# 									'addresses', 'payments', 'mentions']
-				# tables_to_kill.each do |table_name|
-				# 	ActiveRecord::Base.connection.execute("DELETE FROM #{table_name};")					
-				# end
+					# Address.send 				("#{input}_all")
+					# Payment.send 				("#{input}_all")
+					tables_to_kill = ['accounts', 'people', 'relationships', 
+														'addresses', 'payments', 'mentions']
+					tables_to_kill.each do |table_name|
+						ActiveRecord::Base.connection.execute("DELETE FROM #{table_name};")					
+					end
 
 					# show resulting stats
 					puts "accounts: " + Account.count.to_s + " records."
@@ -126,30 +129,30 @@ namespace :populate do
 					puts
 
 					# populate accounts
-				# puts "Creating accounts.."
-				# LegacyAccounts.all.each do |la|
-				# 	Account.create!(tag: la.account_tag, name: la.book_name)
-				# end
-				# puts "accounts now has:" + Account.count.to_s + " records."
-				# puts
+					puts "Creating accounts.."
+					LegacyAccounts.all.each do |la|
+						Account.create!(tag: la.account_tag, name: la.book_name)
+					end
+					puts "accounts now has:" + Account.count.to_s + " records."
+					puts
 
 					# TODO: make this more resilient -- what if no account found?  what if creating a person fails?
 					# TODO: some accounts have people with names set to 'null' -- need to deal with that 
 					# populate people
-				# puts "Creating people and relationships.."
-				# LegacyPeople.all.each do |lp|
-				# 	account = Account.find_by(tag: lp.account_tag)
+					puts "Creating people and relationships.."
+					LegacyPeople.all.each do |lp|
+						account = Account.find_by(tag: lp.account_tag)
 
-				# 	sponsor = Person.find_or_create_by(account_id: account.id, first_name: lp.sponsor_first_name, 
-				# 	                         last_name: lp.sponsor_last_name, sort_order: 0, 
-				# 	                         source: lp.source) 
-				# 	yizkor = Person.find_or_create_by(account_id: account.id, first_name: lp.yizkor_first_name, 
-				# 	                         last_name: lp.yizkor_last_name, sort_order: lp.sort_order*1000, 
-				# 	                         source: lp.source) 
+						sponsor = Person.find_or_create_by(account_id: account.id, first_name: lp.sponsor_first_name, 
+						                         last_name: lp.sponsor_last_name, sort_order: 0, 
+						                         source: lp.source) 
+						yizkor = Person.find_or_create_by(account_id: account.id, first_name: lp.yizkor_first_name, 
+						                         last_name: lp.yizkor_last_name, sort_order: lp.sort_order*1000, 
+						                         source: lp.source) 
 
-				# 	Relationship.find_or_create_by(sponsor_id: sponsor.id, yizkor_id: yizkor.id, 
-				# 	                     kind: lp.relationship, source: lp.source) 
-				# end
+						Relationship.find_or_create_by(sponsor_id: sponsor.id, yizkor_id: yizkor.id, 
+						                     kind: lp.relationship, source: lp.source) 
+					end
 					puts "people now has:" + Person.count.to_s + " records."
 					puts "relationships now has:" + Relationship.count.to_s + " records."
 					puts
@@ -178,23 +181,40 @@ namespace :populate do
 					puts "mentions now has:" + Mention.count.to_s + " records."
 					puts
 
+					# populate addresses
+					# TODO: make this more resilient (what if account is not found?)
+					# TODO: problem with zipcodes (or any other situation with zip not validating, for instance, should be handled)
+					# TODO: specifically, "892	N01360	Mr. Jonathan Abels	45 Howland Road		W. Hartford	CT	06107	CHECK2	t" had a problem with zipcode being "06l07" as not valid
+					# TODO: we currently have to rename 'deleted' to 'active' column name in the legacy_addresses table for this import to work
+					# TODO: further, this process ignores addresses for which we have no matching accounts (ok for now)
+					puts "Creating addresses.."
+					LegacyAddresses.all.each do |ladd|
+						account = Account.find_by(tag: ladd.account_tag)
+						if account then
+							ladd.active ? del = nil : del = Time.now
+							# puts account.id, ladd.label, ladd.street1, ladd.street2, ladd.city, ladd.state, ladd.zip, ladd.source, del
+							Address.create!(account_id: account.id, label: ladd.label, 
+							                street1: ladd.street1, street2: ladd.street2, city: ladd.city,
+							                state: ladd.state, zip: ladd.zip, source: ladd.source,
+							                deleted_at: del)
+						end
+					end
+					puts "addresses now has:" + Address.count.to_s + " records."
+					puts
 
-					# LegacyAccounts.all.each do |oa|
-					# 	puts "#{oa.account_tag} #{oa.book_name}"
-					# 	oa.addresses.each do |addy|
-					# 		puts "DELETED:" unless addy.active
-					# 		puts "#{addy.label}"
-					# 		puts "#{addy.street1} #{addy.street2}"
-					# 		puts "#{addy.city}, #{addy.state}, #{addy.zip}"
-					# 	end
-					# 	oa.payments.each do |pmt|
-					# 		puts "#{pmt.amount} on #{pmt.paid_on}"
-					# 	end
-					# 	oa.mentions.years.each do |yr|
-					# 		puts "Participated in holocaust memorial: #{yr}"
-					# 	end					
-					# 	puts
-					# end
+					# populate payments
+					# TODO: make this more resilient (what if account is not found?)
+					puts "Creating payments.."
+					LegacyPayments.all.each do |lp|
+						account = Account.find_by(tag: lp.account_tag)
+						if account then
+							Payment.create!(account_id: account.id, amount: lp.amount, 
+							                paid_on: lp.paid_on, source: "migration")
+						end
+					end
+					puts "payments now has:" + Payment.count.to_s + " records."
+					puts
+
 				else
 					puts "Populating database with legacy data is CANCELLED.  No changes made."
 				end

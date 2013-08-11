@@ -1,0 +1,39 @@
+<% provide(:title, "Accounts") %>
+
+<div>
+	<h1>
+		Accounts
+	</h1>
+
+	<% @accounts.each do |acc| %>
+		<strong>
+			<%= acc.name.gsub('~',' ') %>
+		</strong>
+		{ <%= acc.tag %> }
+		<br>
+
+		<% if acc.address %>
+			<%= acc.address.label %>, 
+			<%= acc.address.street1 %> <%= acc.address.street2 %>, 
+			<%= acc.address.city %>, <%= acc.address.state %>, <%= acc.address.zip %>
+		<% else %>
+			No address.
+		<% end %>
+
+		<% if acc.yizkors.count != 0 %>
+			<ol>
+				<% acc.people.yizkors.order(:sort_order).each do |p| %>
+						<% full_name = p.first_name.to_s + " " + p.last_name.to_s %>
+						<li><%= full_name %></li>
+				<% end %>
+			</ol>
+		<% else %>
+			<br>
+			<em>
+				No yizkors
+			</em>
+		<% end %>	
+		<p>
+
+	<% end %>
+</div>	

@@ -1,0 +1,45 @@
+1	M10510	Thalia & Lenny Bender
+2	M03325	The Brandes Family
+3	M03925	Michael Scott Brown
+4	M04600	Marci & Richard Caplan
+5	M06450	Dr. Louis & Jill Cooper
+6	M06605	Lisa & Marc Cummins
+7	M07025	Stephanie & Frank Doroff
+8	M09965	The Fogelson Family
+9	M11100	Gina & Jeffrey B. Freis
+10	N01450	Linda Schenker Davis & Jane Friedland
+11	M10925	Staci & Andrew Friedwald
+12	M12760	Beth & Glen Gilbert
+13	M13000	Shelley & Jon Gluck
+14	M13225	Michelle & Scott Goldberg
+15	M16175	Marjory Rossin Gross
+16	M16475	Rita & Robert Gruber & Family
+17	M18585	Hanne Holsten
+18	M19180	Rikki & David Javitch
+19	M19300	Denise & Morton Joselson & Family
+20	M19980	Vicky & Scott Karpf
+21	N90923	Alan Fuchsberg, Rosalind Kaufman, Janet Levine & Susan Raphaelson
+22	M21400	Heidi & Milton Klein
+23	M21700	Alice S. & Marvin M. Koenig
+24	M23075	Jeanette & Robert Leaf
+25	M05200	Ronni Ann Lee
+26	M34550	Lois Sacks Lefsky & Larry Lefsky
+27	M23700	Bede Levinson & Family
+28	M25500	I.D. Luckower
+29	M26600	Sandra S. Mehl & Family
+30	M28825	Ilana & Neil Nowick
+31	M31500	Bonnie & Martin Ratner
+32	M33325	Bonnie & Barry Rosenzweig
+33	M33925	Jan & Joel Rotner
+34	M35101	Sallie & David Schnier & Family
+35	M35875	Jane & Joshua Schraeter
+36	M38245	Jennifer & Daniel Schultz
+37	M36300	Joan Schwartz & Family
+38	M37415	Helaine & Brian Shapiro
+39	R37800	The Shepard Family
+40	M39900	Abraham Small
+41	M40525	Kathy & Aaron Soury
+42	M41525	Michael & Andrea Strone
+43	M41825	Amy I. & John M. Tanenbaum & Family
+44	M44225	Susan & Howard Weintraub
+45	M45800	Marilyn & William Zelman

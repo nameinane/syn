@@ -5,8 +5,9 @@ class Address < ActiveRecord::Base
 	belongs_to :account
 
 	validates :account_id, presence: true
-	validate :account_exists # verify existence of the account this payment references
+	validate :account_exists # verify existence of the account this address references
 
+	validates :label, 	presence: true
 	validates :street1, presence: true
 	validates :city, 		presence: true
 	validates :state, 	presence: true

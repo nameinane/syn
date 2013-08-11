@@ -7,6 +7,7 @@ class Payment < ActiveRecord::Base
 	validates :account_id, presence: true
 	validate :account_exists # verify existence of the account this payment references
 
+	# TODO: payments seem to have one digit after the '.'  why??
 	validates :amount, 	presence: true, numericality: { greater_than: 0 },
             format: { with: /\A\d{1,6}(\.\d{0,2})?\z/ }
 	

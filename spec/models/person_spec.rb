@@ -22,7 +22,7 @@ describe Person do
 
   it { should be_valid }
 
-  it { should_not allow_value(99999).for(:sort_order)  }
+  it { should_not allow_value(999999).for(:sort_order)  }
 	it { should allow_value(2000).for(:sort_order)  }
 	it { should allow_value("faker").for(:source)        }
 
