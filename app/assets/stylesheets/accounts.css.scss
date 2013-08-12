@@ -1,3 +1,73 @@
 // Place all the styles related to the accounts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "custom";
+
+.accounts {
+  list-style: none;
+  margin: 0;
+  margin-bottom: 15px;
+  li {
+    border: 1px solid #bbb;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .name { 
+    font-weight: 600;
+  }
+
+  .tag {
+    text-align: right;
+  }
+
+  .address { 
+    margin-top: 50px;
+    padding: 10px;
+    background: $grayBackground;
+  }
+
+  .holocaust { 
+    li {
+      list-style: none;
+      border: none;
+      padding: 2px;
+      margin-bottom: 0px;
+    }    
+  }
+
+  .yizkors { 
+    li {
+      border: none;
+      padding: 2px;
+      margin-bottom: 0px;
+    }
+  }
+
+  .mentioned { 
+    color: $redMentioned;
+  }
+
+  .not_mentioned { 
+    color: $grayNotMentioned
+  }
+
+}
+
+fieldset.account_fields { 
+	border: 1px solid #bbb;
+	padding: 15px;
+	margin-bottom: 15px;
+	width: 100%;
+
+	legend {
+		border-bottom: 0px;
+		padding-left: 20px;
+		width: 100%;
+
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;	
+	}
+}

@@ -21,5 +21,9 @@ class Mention < ActiveRecord::Base
     "appsyn"  # TODO: make this a user email
   end
 
+  def years
+  	return year
+  end
+
 
 end

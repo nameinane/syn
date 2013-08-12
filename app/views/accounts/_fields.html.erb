@@ -1,0 +1,13 @@
+<%= render 'shared/error_messages', object: f.object %>
+
+<fieldset class="account_fields">
+	<%= f.label :name %>
+	<%= f.text_field :name, class: 'account_name', autofocus: true %>
+
+	<%= f.label :tag %>
+	<%= f.text_field :tag, class: 'account_tag' %>
+</fieldset>
+
+<%= f.fields_for :sponsors do |sponsor| %>
+	<%= render 'sponsor_fields', f: sponsor %>
+<% end %>

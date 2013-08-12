@@ -1,7 +1,30 @@
-<!-- <li>
-	<!-- <%= account.tag %>	 -->
-	<%= link_to account.name, account %>
+<li>
 
+	<%= content_tag(:span, account.name.gsub('~',' '), class: "name") %>
+	<%= content_tag(:span, "{ " + 	account.tag + " }", class: "pull-right text-right") %>
+	<%= content_tag(:br) %>
+
+
+	<ol class="yizkors">
+		<% if account.yizkors.count > 0 %>
+			<%= render partial: 'person', collection: account.yizkors.order(:sort_order) %>
+		<% else %>
+			<%= "No yizkors." %>
+		<% end %>
+	</ol>
+
+	<ul class="holocaust">
+		<li class="<%= account.mentioned_in?(1.year.ago.year) ? 'mentioned' : 'not_mentioned' %>">
+			<%= "Holocaust memorial" %>
+		</li>
+	</ul>
+
+	<div class="address">
+		<% if account.address %>
+			<%= render 'accounts/address', address: account.address %>
+		<% else %>
+			<%= "No mailing address." %>
+		<% end %>
+	</div>
 
 </li>
- -->

@@ -1,18 +1,9 @@
 <% provide(:title, @account.name) %>
 
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-      	<%= @account.name %>
-      </h1>
-			<h2>
-				<%= @account.tag %>
-			</h2>
-      <% @account.people.yizkors.order(:sort_order).each do |accp| %>
-      	<% full_name = accp.first_name + " " + accp.last_name %>
-      	<li><%= full_name %></li>
-      <% end %>
-    </section>
-  </aside>
-</div>
+<h1>
+  View account
+</h1>
+
+<ul id="accounts" class="accounts span7">
+  <%= render @account %>
+</ul>

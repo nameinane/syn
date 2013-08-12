@@ -6,17 +6,18 @@ class Account < ActiveRecord::Base
 	has_many :payments, dependent: :destroy
 	has_many :mentions, as: :mentionable, dependent: :destroy
 
+	has_many :sponsors, -> { uniq }, through: :people
+	has_many :yizkors, -> { uniq }, through: :sponsors
+	has_many :relationships, through: :people
+
+	accepts_nested_attributes_for :sponsors
+	accepts_nested_attributes_for :yizkors
+	accepts_nested_attributes_for :relationships
+	accepts_nested_attributes_for :address
 
 	validates :tag, presence: true, uniqueness: { case_sensitive: false, scope: [:deleted_at] }
 	validates :name, presence: true
 
-	def yizkors
-		self.people.yizkors
-	end
-
-	def sponsors
-		self.people.sponsors
-	end
 
 	def publication_history
 		history = ""
@@ -33,6 +34,17 @@ class Account < ActiveRecord::Base
 		history
 	end
 
+	# TODO: improve search to disregard case and to search associated records
+	def Account.search(search)
+	  if search
+	    where("tag LIKE ? or name LIKE ?", "%#{search}%", "%#{search}%") 
+	  else
+	    all
+	  end
+	end
 
+	def mentioned_in?(year) 
+		mentions.map(&:years).include?(year)
+	end
 
 end

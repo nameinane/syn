@@ -12,6 +12,13 @@ class Person < ActiveRecord::Base
 	has_one :reverse_relationships, foreign_key: "yizkor_id", class_name: "Relationship", dependent: :destroy
 	has_one :sponsor, through: :reverse_relationships, source: :sponsor
 
+
+	accepts_nested_attributes_for :sponsor
+	accepts_nested_attributes_for :yizkors
+	accepts_nested_attributes_for :relationships
+
+
+
 	validates :account_id, presence: true
 	validate :account_exists # verify existence of the account of which this person is a part
 
@@ -38,23 +45,30 @@ class Person < ActiveRecord::Base
 		Person.sponsors.include?(self)
 	end
 
-	def self.yizkors
+	def mentioned_in?(year) 
+		mentions.map(&:years).include?(year)
+	end
+
+
+	def Person.yizkors
 		where("id IN (#{yizkor_ids})")
 	end
 
-	def self.sponsors
+	def Person.sponsors
 		where("id IN (#{sponsor_ids})")
 	end
 
 
+
 	# private helpers (made private explicitely by "private_class_method" at the bottom)
-	def self.yizkor_ids
+	def Person.yizkor_ids
 		"SELECT yizkor_id FROM relationships"
 	end
 
-	def self.sponsor_ids
+	def Person.sponsor_ids
 		"SELECT sponsor_id FROM relationships"
 	end
 	private_class_method :yizkor_ids, :sponsor_ids
+
 
 end

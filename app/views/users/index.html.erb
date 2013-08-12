@@ -4,11 +4,13 @@
 <%= will_paginate %>
 
 <%= form_tag users_path, method: 'get' do %>
-  <p>
-    <%= text_field_tag :search, params[:search], class: "span4" %>
-    <%= submit_tag "Search", name: nil, class: "btn btn-large btn-primary" %>
-  </p>
+<div class="input-append">
+  <%= text_field_tag :search, params[:search], class: "span4" %>
+  <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
+</div>
 <% end %>
+
+
 
 <ul id="users" class="users">
 	<%= render @users %>

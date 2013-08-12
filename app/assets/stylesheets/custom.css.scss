@@ -2,6 +2,9 @@
 
 /* mixins, variables, etc. */
 $grayMediumLight: #eaeaea;
+$grayBackground: #F0F0F0;
+$grayNotMentioned: #A0A0A0;
+$redMentioned: #CC3300;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -90,6 +93,7 @@ footer {
   border-top: 1px solid $grayMediumLight;
   color: $grayLight;
 
+
   a {
     color: $gray;
     &:hover {
@@ -164,6 +168,13 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
+fieldset { 
+  border: 1px solid #bbb;
+  padding: 10px;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
 input {
   height: auto !important;
 }
@@ -181,18 +192,8 @@ input {
   @extend .error;
 }
 
-
-/* Users index */
-
-.users {
-  list-style: none;
-  margin: 0;
-  li {
-    overflow: auto;
-    padding: 10px 0;
-    border-top: 1px solid $grayLighter;
-    &:last-child {
-      border-bottom: 1px solid $grayLighter;
-    }
-  }
+.clear { 
+  clear: both; 
+  width: 100%; 
 }
+
