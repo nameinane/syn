@@ -7,12 +7,14 @@ class Account < ActiveRecord::Base
 	has_many :mentions, as: :mentionable, dependent: :destroy
 
 	has_many :sponsors, -> { uniq }, through: :people
-	has_many :yizkors, -> { uniq }, through: :sponsors
-	has_many :relationships, through: :people
+	has_many :yizkors, -> { uniq }, through: :people
+	# has_many :yizkors, -> { uniq }, through: :sponsors
+	# has_many :relationships, through: :people
 
+	accepts_nested_attributes_for :people, allow_destroy: true
 	accepts_nested_attributes_for :sponsors
 	accepts_nested_attributes_for :yizkors
-	accepts_nested_attributes_for :relationships
+	# accepts_nested_attributes_for :relationships
 	accepts_nested_attributes_for :address
 
 	validates :tag, presence: true, uniqueness: { case_sensitive: false, scope: [:deleted_at] }

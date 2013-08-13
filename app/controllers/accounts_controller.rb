@@ -18,14 +18,19 @@ class AccountsController < ApplicationController
 
   def update
   	@account = Account.find params[:id]
+    @yizkors = @account.yizkors
 
-    if @account.update_attributes(account_params)
-      # update is good (note: use account_params to avoid malicious passing of other params)
-      flash[:success] = "Changes saved.  Hope you like it this way better."
-      redirect_to account_path
-    else
       render 'edit'
-    end
+
+
+    # if @account.update_attributes(account_params)
+    #   # update is good (note: use account_params to avoid malicious passing of other params)
+    #   flash[:success] = "Changes saved.  Hope you like it this way better."
+    #   # redirect_to account_path
+    #   redirect_to edit_account_path
+    # else
+    #   render 'edit'
+    # end
 
   end
 
@@ -34,10 +39,12 @@ class AccountsController < ApplicationController
 
     def account_params
     	params.require(:account).permit(:tag, :name, 
+                                      people_attributes:
+                                      [:id, :first_name, :last_name, :sort_order, :_destroy],
                                       sponsors_attributes:
-                                      [:id, :first_name, :last_name, :sort_order,
-                                        yizkors_attributes:
-                                      [:id, :first_name, :last_name, :sort_order]],
+                                      [:id, :first_name, :last_name, :sort_order],
+                                      yizkors_attributes:
+                                      [:id, :first_name, :last_name, :sort_order],
     	                                address_attributes: 
     	                                [:id, :label, :street1, :street2, :city, :state, :zip])
     end

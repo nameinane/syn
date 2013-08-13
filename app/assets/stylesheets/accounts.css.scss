@@ -49,25 +49,23 @@
     color: $redMentioned;
   }
 
-  .not_mentioned { 
+  .not-mentioned { 
     color: $grayNotMentioned
   }
 
 }
 
-fieldset.account_fields { 
-	border: 1px solid #bbb;
-	padding: 15px;
-	margin-bottom: 15px;
-	width: 100%;
+.account-fields { 
+	// @extend .form-group;
+	// @extend .makeRow;
+}
 
-	legend {
-		border-bottom: 0px;
-		padding-left: 20px;
-		width: 100%;
+.account-name { 
+	// @extend .span7;
+}
 
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;	
-	}
+.account-tag { 
+	// @extend .span2;
+	// @extend .pull-right;
+	// @extend .text-right;
 }

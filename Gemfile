@@ -23,7 +23,9 @@ gem 'paranoia' # ActiveRecord plugin allowing you to hide and restore records wi
 # gem 'acts_as_paranoid' # ActiveRecord (>=3.0) plugin which allows you to hide and restore records without actually deleting them.
 # gem 'paranoid2' # paranoid models for rails 4
 gem 'validates_timeliness' # Date and time validation plugin for ActiveModel and Rails. Supports multiple ORMs and allows custom date/time formats.
-
+gem 'formtastic' # A Rails form builder plugin with semantically rich and accessible markup.
+gem 'formtastic-bootstrap'# Formtastic form builder to generate Twitter Bootstrap-friendly markup.
+# gem "formtastic-plus-bootstrap" # formtastic-plus-bootstrap makes a formtastic form to look like a bootstrap form http://antage.github.com/formtastic-plus-bootstrap
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

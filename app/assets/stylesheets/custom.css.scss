@@ -168,12 +168,12 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
-fieldset { 
-  border: 1px solid #bbb;
-  padding: 10px;
-  margin-bottom: 15px;
-  @include box_sizing;
-}
+// fieldset { 
+//   border: 1px solid #bbb;
+//   padding: 10px;
+//   margin-bottom: 15px;
+//   @include box_sizing;
+// }
 
 input {
   height: auto !important;
