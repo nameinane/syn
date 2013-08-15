@@ -63,6 +63,7 @@ GEM
       rails
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
+    cocoon (1.2.0)
     coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -244,6 +245,7 @@ DEPENDENCIES
   capybara
   carmen-rails
   childprocess
+  cocoon
   coffee-rails
   default_value_for!
   factory_girl_rails

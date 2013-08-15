@@ -8,8 +8,8 @@
 			<%= f.inputs :name, class: "span6" %>
 			<%= f.inputs :tag, 	class: "span2" %>
 
-			<%= f.inputs name: "Address", id: "people", class: "control-group controls row-fluid" do %>
-				<%= f.semantic_fields_for @account.address do |address| %>
+			<%= f.inputs name: "Address", id: "address", class: "control-group controls row-fluid" do %>
+				<%= f.semantic_fields_for :address do |address| %>
 					<%= address.inputs :label, 		class: "span6 row" %>
 					<%= address.inputs :street1, 	class: "span6 row" %>
 					<%= address.inputs :street2, 	class: "span2 row"%>
@@ -21,13 +21,14 @@
 
 		<% end %>
 
-
 		<%= f.inputs name: "Yizkors", id: "yizkors", class: "form-group" do %>
-			<%= f.semantic_fields_for :people, @account.yizkors.order(:sort_order, :id), 
-			class: "control-group" do |person| %>
+			<%= f.semantic_fields_for :yizkors, @account.yizkors.order(:sort_order, :id), 
+																									class: "control-group" do |person| %>
 				<%= render 'person_fields', f: person %>				
 			<% end %>
-			<%= link_to_add_fields "Add Yizkor", f, :people %>
+	    	<div class='links'>
+				<%= link_to_add_association "add yizkor", f, :people %>
+	    	</div>
 		<% end %>
 
 		<%= f.actions class: "control-group controls row-fluid" do %>

@@ -14,8 +14,11 @@
 	</ol>
 
 	<ul class="holocaust">
-		<li class="<%= account.mentioned_in?(1.year.ago.year) ? 'mentioned' : 'not-mentioned' %>">
-			<%= "Holocaust memorial" %>
+		<li class="<%= account.mentioned_in?(Date.current.year) ? 'mentioned':'not-mentioned' %>">
+				<%= "Holocaust memorial" %>
+				<span class="<%= account.mentioned_in?(1.year.ago.year) ? 'mentioned':'not-mentioned' %>">
+						<%= "(#{1.year.ago.year}: Holocaust memorial)" %>
+				</span>
 		</li>
 	</ul>
 

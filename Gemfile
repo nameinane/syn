@@ -28,6 +28,7 @@ gem 'formtastic-bootstrap'# Formtastic form builder to generate Twitter Bootstra
 # gem "formtastic-plus-bootstrap" # formtastic-plus-bootstrap makes a formtastic form to look like a bootstrap form http://antage.github.com/formtastic-plus-bootstrap
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+gem 'cocoon' # Dynamic nested forms using jQuery made easy; works with formtastic, simple_form or default forms http://github.com/nathanvda/cocoon
 
 
 # For testing, grab selenium and capybara

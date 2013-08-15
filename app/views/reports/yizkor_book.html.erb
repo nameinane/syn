@@ -1,0 +1,11 @@
+<% current_account_tag = "" %>
+<% @yizkors.each do |yizkor| %>
+
+	<% if yizkor.account.tag != current_account_tag then %> 
+		<%= "#{yizkor.account.name.gsub('~',' ')}" %> <br>
+	<% end %>
+
+	<%= "_______#{yizkor.first_name} #{yizkor.last_name}" %> <br>
+
+	<% current_account_tag = yizkor.account.tag %>
+<% end %>

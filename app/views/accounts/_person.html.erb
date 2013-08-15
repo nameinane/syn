@@ -1,3 +1,7 @@
-<li class="<%= person.mentioned_in?(1.year.ago.year) ? 'mentioned' : 'not-mentioned' %>">
+<li class="<%= person.mentioned_in?(Date.current.year) ? 'mentioned' : 'not-mentioned' %>">
 	<%= "#{person.first_name} #{person.last_name}" %>
+<span class="<%= person.mentioned_in?(1.year.ago.year) ? 'mentioned' : 'not-mentioned' %>">
+	<%= "(#{1.year.ago.year}: #{person.first_name} #{person.last_name})" %>
+</span>
 </li>
+

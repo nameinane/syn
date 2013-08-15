@@ -113,8 +113,11 @@ namespace :populate do
 					# Mention.send 				("#{input}_all")
 					# Address.send 				("#{input}_all")
 					# Payment.send 				("#{input}_all")
-					tables_to_kill = ['accounts', 'people', 'relationships', 
-														'addresses', 'payments', 'mentions']
+
+			# tables_to_kill = ['accounts', 'people', 'relationships', 
+			# 									'addresses', 'payments', 'mentions']
+			tables_to_kill = ['mentions']
+
 					tables_to_kill.each do |table_name|
 						ActiveRecord::Base.connection.execute("DELETE FROM #{table_name};")					
 					end
@@ -129,37 +132,39 @@ namespace :populate do
 					puts
 
 					# populate accounts
-					puts "Creating accounts.."
-					LegacyAccounts.all.each do |la|
-						Account.create!(tag: la.account_tag, name: la.book_name)
-					end
-					puts "accounts now has:" + Account.count.to_s + " records."
-					puts
+			# puts "Creating accounts.."
+			# LegacyAccounts.all.each do |la|
+			# 	Account.create!(tag: la.account_tag, name: la.book_name)
+			# end
+			# puts "accounts now has:" + Account.count.to_s + " records."
+			# puts
 
 					# TODO: make this more resilient -- what if no account found?  what if creating a person fails?
 					# TODO: some accounts have people with names set to 'null' -- need to deal with that 
 					# populate people
-					puts "Creating people and relationships.."
-					LegacyPeople.all.each do |lp|
-						account = Account.find_by(tag: lp.account_tag)
+					# TODO: what if sponsor and yizkor have the same names?  how will find_or_create_by work? -- OK because of different 'sort_order'
+			# puts "Creating people and relationships.."
+			# LegacyPeople.all.each do |lp|
+			# 	account = Account.find_by(tag: lp.account_tag)
 
-						sponsor = Person.find_or_create_by(account_id: account.id, first_name: lp.sponsor_first_name, 
-						                         last_name: lp.sponsor_last_name, sort_order: 0, 
-						                         source: lp.source) 
-						yizkor = Person.find_or_create_by(account_id: account.id, first_name: lp.yizkor_first_name, 
-						                         last_name: lp.yizkor_last_name, sort_order: lp.sort_order*1000, 
-						                         source: lp.source) 
+			# 	sponsor = Person.find_or_create_by(account_id: account.id, first_name: lp.sponsor_first_name, 
+			# 	                         last_name: lp.sponsor_last_name, sort_order: 0, 
+			# 	                         source: lp.source) 
+			# 	yizkor = Person.find_or_create_by(account_id: account.id, first_name: lp.yizkor_first_name, 
+			# 	                         last_name: lp.yizkor_last_name, sort_order: lp.sort_order*1000, 
+			# 	                         source: lp.source) 
 
-						Relationship.find_or_create_by(sponsor_id: sponsor.id, yizkor_id: yizkor.id, 
-						                     kind: lp.relationship, source: lp.source) 
-					end
-					puts "people now has:" + Person.count.to_s + " records."
-					puts "relationships now has:" + Relationship.count.to_s + " records."
-					puts
+			# 	Relationship.find_or_create_by(account_id: account.id, sponsor_id: sponsor.id, yizkor_id: yizkor.id, 
+			# 	                     kind: lp.relationship, source: lp.source) 
+			# end
+			# puts "people now has:" + Person.count.to_s + " records."
+			# puts "relationships now has:" + Relationship.count.to_s + " records."
+			# puts
 
 					# TODO: make this more resilient -- what if no account found?  what if creating a mention fails?
 					# TODO: DRY this code!
 					# populate mentions
+					# TODO: what if sponsor and yizkor have the same names?  how will find_or_create_by work?
 					puts "Creating mentions.."
 					LegacyMentions.all.each do |lmn|
 						account = Account.find_by(tag: lmn.account_tag)
@@ -169,10 +174,16 @@ namespace :populate do
 							# if person.nil? then
 							# 	puts "#{lmn.account_tag} #{account.id} #{lmn.yizkor_first_name} #{lmn.yizkor_last_name}"
 							# end
-							person = Person.find_or_create_by(account_id: account.id, 
-							                        first_name: lmn.yizkor_first_name, last_name: lmn.yizkor_last_name)
+							person = Person.where("account_id = :acc_id AND 
+							                      first_name = :f_name AND 
+							                      last_name = :l_name AND 
+							                      sort_order > 0",
+							                      { acc_id: account.id, 
+							                      	f_name: lmn.yizkor_first_name,
+							                      	l_name: lmn.yizkor_last_name }).first
 							Mention.find_or_create_by(mentionable_id: person.id, mentionable_type: "Person",
-							                          year: lmn.publication_year, source: "migration")
+							                          year: lmn.publication_year, source: "migration") 
+
 						when "holocaust"
 							Mention.find_or_create_by(mentionable_id: account.id, mentionable_type: "Account",
 							                          year: lmn.publication_year, source: "migration")
@@ -187,33 +198,33 @@ namespace :populate do
 					# TODO: specifically, "892	N01360	Mr. Jonathan Abels	45 Howland Road		W. Hartford	CT	06107	CHECK2	t" had a problem with zipcode being "06l07" as not valid
 					# TODO: we currently have to rename 'deleted' to 'active' column name in the legacy_addresses table for this import to work
 					# TODO: further, this process ignores addresses for which we have no matching accounts (ok for now)
-					puts "Creating addresses.."
-					LegacyAddresses.all.each do |ladd|
-						account = Account.find_by(tag: ladd.account_tag)
-						if account then
-							ladd.active ? del = nil : del = Time.now
-							# puts account.id, ladd.label, ladd.street1, ladd.street2, ladd.city, ladd.state, ladd.zip, ladd.source, del
-							Address.create!(account_id: account.id, label: ladd.label, 
-							                street1: ladd.street1, street2: ladd.street2, city: ladd.city,
-							                state: ladd.state, zip: ladd.zip, source: ladd.source,
-							                deleted_at: del)
-						end
-					end
-					puts "addresses now has:" + Address.count.to_s + " records."
-					puts
+			# puts "Creating addresses.."
+			# LegacyAddresses.all.each do |ladd|
+			# 	account = Account.find_by(tag: ladd.account_tag)
+			# 	if account then
+			# 		ladd.active ? del = nil : del = Time.now
+			# 		# puts account.id, ladd.label, ladd.street1, ladd.street2, ladd.city, ladd.state, ladd.zip, ladd.source, del
+			# 		Address.create!(account_id: account.id, label: ladd.label, 
+			# 		                street1: ladd.street1, street2: ladd.street2, city: ladd.city,
+			# 		                state: ladd.state, zip: ladd.zip, source: ladd.source,
+			# 		                deleted_at: del)
+			# 	end
+			# end
+			# puts "addresses now has:" + Address.count.to_s + " records."
+			# puts
 
 					# populate payments
 					# TODO: make this more resilient (what if account is not found?)
-					puts "Creating payments.."
-					LegacyPayments.all.each do |lp|
-						account = Account.find_by(tag: lp.account_tag)
-						if account then
-							Payment.create!(account_id: account.id, amount: lp.amount, 
-							                paid_on: lp.paid_on, source: "migration")
-						end
-					end
-					puts "payments now has:" + Payment.count.to_s + " records."
-					puts
+			# puts "Creating payments.."
+			# LegacyPayments.all.each do |lp|
+			# 	account = Account.find_by(tag: lp.account_tag)
+			# 	if account then
+			# 		Payment.create!(account_id: account.id, amount: lp.amount, 
+			# 		                paid_on: lp.paid_on, source: "migration")
+			# 	end
+			# end
+			# puts "payments now has:" + Payment.count.to_s + " records."
+			# puts
 
 				else
 					puts "Populating database with legacy data is CANCELLED.  No changes made."

@@ -1,7 +1,7 @@
 <fieldset class="control-group">
+	<%= "id: #{f.object.id}" %>
 	<%= f.inputs :sort_order, 	class: "span2 row" %>
 	<%= f.inputs :first_name, 	class: "span2 row" %>
-	<%= f.inputs :last_name, 	class: "span4 row" %>
-	<%= f.hidden_field 	:_destroy %>
-	<%= link_to "del", '#', class: "remove_fields btn btn-mini" %>
+	<%= f.inputs :last_name, 		class: "span3 row" %>
+	<%= link_to_remove_association "del", f, class: "btn btn-mini" %>
 </fieldset>

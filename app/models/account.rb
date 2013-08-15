@@ -1,21 +1,24 @@
 class Account < ActiveRecord::Base
 	acts_as_paranoid
 
-	has_many :people, dependent: :destroy
 	has_one	 :address, dependent: :destroy
 	has_many :payments, dependent: :destroy
 	has_many :mentions, as: :mentionable, dependent: :destroy
 
-	has_many :sponsors, -> { uniq }, through: :people
-	has_many :yizkors, -> { uniq }, through: :people
+	has_many :relationships
+	has_many :sponsors, -> { uniq }, through: :relationships
+	has_many :yizkors, -> { uniq }, through: :relationships
+
+	has_many :people, dependent: :destroy
 	# has_many :yizkors, -> { uniq }, through: :sponsors
 	# has_many :relationships, through: :people
+	# has_many :yizkors, -> { uniq }, through: :people
 
-	accepts_nested_attributes_for :people, allow_destroy: true
+	accepts_nested_attributes_for :address
+	accepts_nested_attributes_for :relationships
 	accepts_nested_attributes_for :sponsors
 	accepts_nested_attributes_for :yizkors
-	# accepts_nested_attributes_for :relationships
-	accepts_nested_attributes_for :address
+	accepts_nested_attributes_for :people, allow_destroy: true
 
 	validates :tag, presence: true, uniqueness: { case_sensitive: false, scope: [:deleted_at] }
 	validates :name, presence: true

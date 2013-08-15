@@ -1,0 +1,66 @@
+<html>
+<head>
+
+	<script type="text/javascript" src="http://ftlabs.github.io/ftcolumnflow/src/FTColumnflow.js">
+	</script>
+	<meta charset="utf-8" />
+
+	<style media="screen, print" type="text/css">
+
+			body { margin: 83mm 64mm 51mm 64mm; padding: 0; }
+			/*#viewport { width: 900px; height: 600px; }*/
+			#viewport { width: 820px; height: 1054px; }
+			#flowedContent, #fixedContent { display: none; }
+
+			.account_name {font:9pt times; padding: 3pt;}
+			.page-break	{ display: block; page-break-before: always; }
+			
+			/*@page { size: auto;    auto is the initial value  */
+    					/* this affects the margin in the printer settings */ 
+    					/*margin: 83mm 64mm 51mm 64mm;} */
+
+			/* this affects the margin on the content before sending to printer */ 
+			/*body { margin: 25mm 25mm 25mm 25mm;} */
+  </style>
+</head>
+
+
+<body>
+	<div id="viewport">
+		<div id="target"></div>
+	</div>
+
+	<% c = 0 %>
+	<div id="flowedContent">
+		<% @accounts.each do |acc| %>
+		<% c = c +1 %>
+					<div class="account_name">
+						<%= acc.name.gsub('~','<br /> &nbsp;&nbsp;&nbsp;').html_safe %>
+					</div>
+					<% if c == 20 then %>
+						<div class="page-break"></div>
+						<% c = 0 %>
+					<% end %>
+		<% end %>
+	</div>
+
+
+	<div id="fixedContent"></div>
+
+	<script type="text/javascript">
+		var cf = new FTColumnflow('target', 'viewport', {
+			columnCount:           2,
+			standardiseLineHeight: false, // was 'true'
+			// lineHeight: 20,
+			columnWidth: 200,
+			columnGap: 20,
+			pagePadding:           283,
+			pageArrangement: 'vertical',
+			showGrid: true,
+		});
+		// cf.flow(document.getElementById('flowedContent'), document.getElementById('fixedContent'));
+		cf.flow(document.getElementById('flowedContent'));
+	</script>
+
+</body>
+</html>

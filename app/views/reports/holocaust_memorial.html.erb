@@ -1,0 +1,68 @@
+<html>
+<head>
+
+	<style media="screen, print" type="text/css">
+
+
+			body { 
+
+
+				/*margin: 83mm 64mm 51mm 64mm; */
+				/*padding: 0; */
+				-webkit-column-count:2;  
+				-moz-column-count:2;  
+				column-count:2;  
+				/*line-height: 1.4em; */
+				/*word-spacing:1px; */
+				/*letter-spacing:0.2px;*/
+
+					column-width: 25px;
+					column-gap: 2000px;
+							margin-top: 82mm;
+							margin-right: 64mm;
+							margin-bottom: 50mm;
+							margin-left: 64mm;					
+			}
+
+			@page { size: 8.5in 11in; 
+							margin: 20%;
+							margin-top: 82mm;
+							margin-right: 64mm;
+							margin-bottom: 50mm;
+							margin-left: 64mm;
+					column-gap: 2000px;
+
+							 }
+
+
+			.account_name {font:9pt times; padding: 3pt; page-break-inside: avoid;}
+			.page-break	{ display: block; page-break-before: always; }
+			
+			/* this affects the margin in the printer settings */ 
+/*			@page { size: auto;    
+    					margin: 83mm 64mm 51mm 64mm; 
+    				}
+*/
+  </style>
+
+</head>
+
+
+<body>
+
+	<% c = 0 %>
+	<div id="flowedContent">
+		<% @accounts.each do |acc| %>
+		<% c = c + 1 %>
+					<div class="account_name">
+						<%= acc.name.gsub('~','<br /> &nbsp;&nbsp;&nbsp;').html_safe %>
+					</div>
+					<% if c == 20000 then %>
+						<div class="page-break"></div>
+						<% c = 0 %>
+					<% end %>
+		<% end %>
+	</div>
+
+</body>
+</html>

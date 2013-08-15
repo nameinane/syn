@@ -18,19 +18,20 @@ class AccountsController < ApplicationController
 
   def update
   	@account = Account.find params[:id]
-    @yizkors = @account.yizkors
 
+    # binding.pry
+    # render 'edit'
+
+    if @account.update_attributes(account_params[:yizkors_attributes]["0"])
+      # update is good (note: use account_params to avoid malicious passing of other params)
+      flash[:success] = "Changes saved.  Hope you like it this way better."
+      # redirect_to account_path
+      redirect_to edit_account_path
+    else
+      flash.now[:error] = "Changes not saved.  Look for errors below (or check logs).  Logs say:" + @account.errors.messages.inspect
+      # Rails.logger.info(@account.errors.messages.inspect)
       render 'edit'
-
-
-    # if @account.update_attributes(account_params)
-    #   # update is good (note: use account_params to avoid malicious passing of other params)
-    #   flash[:success] = "Changes saved.  Hope you like it this way better."
-    #   # redirect_to account_path
-    #   redirect_to edit_account_path
-    # else
-    #   render 'edit'
-    # end
+    end
 
   end
 
@@ -39,14 +40,15 @@ class AccountsController < ApplicationController
 
     def account_params
     	params.require(:account).permit(:tag, :name, 
-                                      people_attributes:
-                                      [:id, :first_name, :last_name, :sort_order, :_destroy],
-                                      sponsors_attributes:
-                                      [:id, :first_name, :last_name, :sort_order],
+                                      address_attributes: 
+                                      [:id, :label, :street1, :street2, :city, :state, :zip],
                                       yizkors_attributes:
-                                      [:id, :first_name, :last_name, :sort_order],
-    	                                address_attributes: 
-    	                                [:id, :label, :street1, :street2, :city, :state, :zip])
+                                      [:id, :first_name, :last_name, :sort_order, :_destroy])
     end
 
 end
+
+                                      # people_attributes:
+                                      # [:id, :first_name, :last_name, :sort_order, :_destroy],
+                                      # sponsors_attributes:
+                                      # [:id, :first_name, :last_name, :sort_order],
