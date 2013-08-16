@@ -22,7 +22,7 @@ class AccountsController < ApplicationController
     # binding.pry
     # render 'edit'
 
-    if @account.update_attributes(account_params[:yizkors_attributes]["0"])
+    if @account.update_attributes(account_params)
       # update is good (note: use account_params to avoid malicious passing of other params)
       flash[:success] = "Changes saved.  Hope you like it this way better."
       # redirect_to account_path
@@ -42,7 +42,9 @@ class AccountsController < ApplicationController
     	params.require(:account).permit(:tag, :name, 
                                       address_attributes: 
                                       [:id, :label, :street1, :street2, :city, :state, :zip],
-                                      yizkors_attributes:
+                                      mentions_attributes: 
+                                      [:id, :year, :mentionable_id, :mentionable_type, :source, :_destroy],
+                                      people_attributes:
                                       [:id, :first_name, :last_name, :sort_order, :_destroy])
     end
 

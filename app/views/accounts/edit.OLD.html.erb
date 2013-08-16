@@ -21,26 +21,14 @@
 
 		<% end %>
 
-		<%= f.inputs name: "Mentions", id: "mentions", class: "form-group" do %>
-			<%= f.semantic_fields_for :mentions, @account.mentions.order(:year), 
-																									class: "control-group" do |mention| %>
-				<%= render 'mention_fields', f: mention %>				
-			<% end %>
-	    	<div class='links'>
-				<%= link_to_add_association "add mention", f, :mentions %>
-	    	</div>
-		<% end %>
-
-
-		<%= f.inputs name: "People", id: "people", class: "form-group" do %>
-			<%= f.semantic_fields_for :people, @account.people.order(:sort_order, :id), 
+		<%= f.inputs name: "Yizkors", id: "yizkors", class: "form-group" do %>
+			<%= f.semantic_fields_for :yizkors, @account.yizkors.order(:sort_order, :id), 
 																									class: "control-group" do |person| %>
-				<%= link_to "edit id: #{person.object.id}", edit_person_path(Person.find(person.object.id)) %>
 				<%= render 'person_fields', f: person %>				
 			<% end %>
-			<div class='links'>
-				<%= link_to_add_association "add person", f, :people %>
-			</div>
+	    	<div class='links'>
+				<%= link_to_add_association "add yizkor", f, :people %>
+	    	</div>
 		<% end %>
 
 		<%= f.actions class: "control-group controls row-fluid" do %>

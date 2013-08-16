@@ -15,7 +15,8 @@ class Person < ActiveRecord::Base
 
 	accepts_nested_attributes_for :sponsor
 	accepts_nested_attributes_for :yizkors
-	accepts_nested_attributes_for :relationships
+	accepts_nested_attributes_for :relationships, allow_destroy: true
+	accepts_nested_attributes_for :mentions, allow_destroy: true
 
 	validates :account_id, presence: true
 	validate :account_exists # verify existence of the account of which this person is a part

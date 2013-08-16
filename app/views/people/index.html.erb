@@ -1,0 +1,20 @@
+<% for person in @people %>
+  <div class="person">
+    <%=person.id %>
+    <%=person.last_name %>
+    <%=person.first_name %>
+    <%=person.sort_order %>
+  </div>
+<% end %>
+</div>
+
+
+<h2>New person</h2>
+
+<%= semantic_form_for Person.new do |f| %>
+	<%= f.inputs :first_name %>
+	<%= f.inputs :last_name %>
+	<%= f.inputs :sort_order %>
+	<%= f.hidden_field :account_id, value: person.account.id %>
+<%= f.actions %>
+<% end %>

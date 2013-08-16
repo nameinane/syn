@@ -1,0 +1,25 @@
+<div id="mentions">
+<% if @mentions.first.mentionable.class.name == "Account"  %>
+	<%=@mentions.first.mentionable.name %> ::
+	<%=@mentions.first.mentionable.tag %>
+<% else %>
+	<%=@mentions.first.mentionable.first_name %>
+	<%=@mentions.first.mentionable.last_name %>
+<% end %>
+
+
+currently mentioned in years: 
+<% for mention in @mentions %>
+  <div class="mention">
+    <%=mention.year %>
+  </div>
+<% end %>
+</div>
+
+
+<h2>New mention</h2>
+
+<%= semantic_form_for [@mentionable, Mention.new] do |f| %>
+<%= f.inputs :year %>
+<%= f.actions %>
+<% end %>

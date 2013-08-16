@@ -1,0 +1,30 @@
+<% provide(:title, "Edit person") %>
+<h1>Edit person</h1>
+
+<div class="container">
+
+	<%= semantic_form_for @person, html: { class: 'span9 offset1', multipart: true } do |f| %>
+		<%= f.inputs name: "Basic properties", id: "basic" do %>
+			<%= f.inputs :first_name, class: "span3" %>
+			<%= f.inputs :last_name, class: "span3" %>
+		<% end %>
+
+		<%= f.inputs name: "Mentions", id: "mentions", class: "form-group" do %>
+			<%= f.semantic_fields_for :mentions, @person.mentions.order(:year), 
+																									class: "control-group" do |mention| %>
+				<%= render 'mention_fields', f: mention %>				
+			<% end %>
+	    	<div class='links'>
+				<%= link_to_add_association "add mention", f, :mentions %>
+	    	</div>
+		<% end %>
+
+		<%= f.actions class: "control-group controls row-fluid" do %>
+			<%= f.action :cancel, as: :link, label: "Cancel", button_html: { class: "pull-right" } %>
+			<%= f.action :submit, as: :button, button_html: {class: "btn btn-primary pull-right"} %>
+		<% end %>
+	<% end %>
+
+</div>
+
+

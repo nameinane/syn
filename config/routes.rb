@@ -10,7 +10,19 @@ Syn::Application.routes.draw do
   match '/yizkor_book',          to:   'reports#yizkor_book',          via: 'get'
 
 
-  resources :accounts
+  resources :accounts do
+    resources :people
+    resources :mentions
+    resources :relationships
+  end
+
+  resources :people do
+    resources :mentions
+    resources :relationships
+  end
+
+
+
   # resources :reports, only: [:holocaust_memorial, :yizkor_book]
 
   # The priority is based upon order of creation: first created -> highest priority.

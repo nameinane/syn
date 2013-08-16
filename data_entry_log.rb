@@ -12,3 +12,6 @@ Relationship.find_by(sponsor_id:1538).update_attributes(sponsor_id:1540)
 Person.find(1538).destroy
 
 # Move Milton Walsey (yizkor) to the main Steven Walsey
+Relationship.where(sponsor_id:2443).first.update_attributes(sponsor_id:2445)
+Person.find(2443).destroy
+

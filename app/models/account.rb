@@ -16,9 +16,10 @@ class Account < ActiveRecord::Base
 
 	accepts_nested_attributes_for :address
 	accepts_nested_attributes_for :relationships
-	accepts_nested_attributes_for :sponsors
-	accepts_nested_attributes_for :yizkors
+	# accepts_nested_attributes_for :sponsors
+	# accepts_nested_attributes_for :yizkors
 	accepts_nested_attributes_for :people, allow_destroy: true
+	accepts_nested_attributes_for :mentions, allow_destroy: true
 
 	validates :tag, presence: true, uniqueness: { case_sensitive: false, scope: [:deleted_at] }
 	validates :name, presence: true

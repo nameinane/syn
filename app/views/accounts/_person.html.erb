@@ -3,5 +3,13 @@
 <span class="<%= person.mentioned_in?(1.year.ago.year) ? 'mentioned' : 'not-mentioned' %>">
 	<%= "(#{1.year.ago.year}: #{person.first_name} #{person.last_name})" %>
 </span>
+
+<%= person.sponsor? ? '<-- *SPONSOR*' : '' %>
+<%= "sort order: #{person.sort_order}" %>
+<%= "id: #{person.id}" %>
+
+<%= link_to "delete", person, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: person.first_name %>
 </li>
 

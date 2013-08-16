@@ -1,0 +1,35 @@
+<% provide(:title, "Edit account") %>
+<h1>Edit account</h1>
+
+<div class="container">
+
+	<%= semantic_form_for @account, html: { class: 'span9 offset1', multipart: true } do |f| %>
+		<%= f.inputs name: "Properties", id: "basic" do %>
+			<%= f.inputs :name, class: "span6" %>
+			<%= f.inputs :tag, 	class: "span2" %>
+
+		  <div class="span8">
+		    <% if @account.people.any? %>
+		      People (<%= @account.people.count %>)
+		      <ol class="people">
+		        <%= render partial: 'person', collection: @account.people.order(:sort_order) %>
+		      </ol>
+		    <% end %>
+		  </div>
+
+			<%= f.inputs name: "Address", id: "address", class: "control-group controls row-fluid" do %>
+				<%= render 'address_fields', f: f %>
+			<% end %>
+
+		<% end %>
+
+
+		<%= f.actions class: "control-group controls row-fluid" do %>
+			<%= f.action :cancel, as: :link, label: "Cancel", button_html: { class: "pull-right" } %>
+			<%= f.action :submit, as: :button, button_html: {class: "btn btn-primary pull-right"} %>
+		<% end %>
+	<% end %>
+
+</div>
+
+

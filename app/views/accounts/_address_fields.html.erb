@@ -1,0 +1,8 @@
+				<%= f.semantic_fields_for :address do |address| %>
+					<%= address.inputs :label, 		class: "span6 row" %>
+					<%= address.inputs :street1, 	class: "span6 row" %>
+					<%= address.inputs :street2, 	class: "span2 row"%>
+					<%= address.inputs :city, 		class: "span4 row"%>
+					<%= address.inputs :state, 		class: "span2 row"%>
+					<%= address.inputs :zip, 			class: "span2 row"%>
+				<% end %>
